@@ -1,0 +1,17 @@
+numpy>=1.24
+scipy>=1.10
+soundfile>=0.12
+sounddevice>=0.4
+click>=8.1
+textual>=0.40
+pyyaml>=6.0
+
+[all]
+binaural-generator[dev,mp3]
+
+[dev]
+pytest>=7.0
+pytest-cov>=4.0
+
+[mp3]
+pydub>=0.25

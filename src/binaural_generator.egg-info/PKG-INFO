@@ -1,0 +1,382 @@
+Metadata-Version: 2.4
+Name: binaural-generator
+Version: 1.0.0
+Summary: Gerador de sons binaurais, isochrônicos e ambient pads para meditação, foco, sono e elevação vibracional.
+Author: Binaural Generator Team
+License: MIT
+Project-URL: Homepage, https://github.com/binaural-generator/binaural-generator
+Keywords: binaural,isochronic,brainwave,meditation,focus,sound,audio
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Multimedia :: Sound/Audio :: Sound Synthesis
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.10
+Requires-Dist: soundfile>=0.12
+Requires-Dist: sounddevice>=0.4
+Requires-Dist: click>=8.1
+Requires-Dist: textual>=0.40
+Requires-Dist: pyyaml>=6.0
+Provides-Extra: mp3
+Requires-Dist: pydub>=0.25; extra == "mp3"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+Provides-Extra: all
+Requires-Dist: binaural-generator[dev,mp3]; extra == "all"
+
+# 🧠 Binaural Generator
+
+**Gerador de sons binaurais, isochrônicos e ambient pads** para meditação, foco, sono e elevação vibracional — inspirado na live contínua do canal [Brain Waves](https://www.youtube.com/@BrainWaves) (YouTube).
+
+> 🎧 **Use fones de ouvido** para experimentar o efeito binaural completo.
+
+---
+
+## ✨ Funcionalidades
+
+| Recurso | Descrição |
+|---------|-----------|
+| 🔊 **Ondas binaurais** | Duas portadoras L/R com beat configurável |
+| 🔔 **Pulsos isocrônicos** | Amplitude gating — não precisa de fones |
+| 🎵 **Monaural beats** | Beat audível central |
+| 🎛 **Formas de onda** | Seno, dente-de-serra, quadrada, triângulo, ruído rosa/branco |
+| 📐 **Modulação AM/FM** | Modulação de amplitude e frequência |
+| 🎚 **Mixagem de camadas** | Ambient pad + ruído + binaural com volume independente |
+| 🎹 **Envelope ADSR** | Attack/Decay/Sustain/Release + fade in/out (Hann) |
+| 📦 **Presets prontos** | Foco, meditação, sono, elevação, live stream |
+| 💾 **Exportação** | WAV 16/24-bit, MP3 (via pydub) |
+| ▶️ **Playback** | Streaming em tempo real com loop |
+| ⌨️ **CLI** | Interface de linha de comando completa |
+| 🖥 **TUI** | Interface interativa com visualização de onda |
+
+---
+
+## 📋 Requisitos
+
+- **Python 3.10+**
+- **macOS** (funciona também em Linux/Windows)
+- **ffmpeg** (opcional, para exportação MP3)
+
+---
+
+## 🚀 Instalação
+
+```bash
+# Clonar o projeto
+git clone <repo-url>
+cd binaural-generator
+
+# Criar ambiente virtual
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+# .venv\Scripts\activate   # Windows
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Instalar o pacote em modo editável
+pip install -e ".[dev]"
+```
+
+---
+
+## ⌨️ CLI — Uso via Terminal
+
+### Listar presets disponíveis
+
+```bash
+binaural list-presets
+```
+
+```
+📋 Presets embutidos:
+   • focus                — Ondas beta (14 Hz) para concentração profunda
+   • meditation           — Ondas theta (6 Hz) para meditação profunda
+   • sleep                — Ondas delta (2 Hz) para indução do sono
+   • elevation            — 528 Hz (Solfeggio) + 7.83 Hz (Schumann) para elevação
+   • live                 — Modo live stream contínuo — alpha 10 Hz
+```
+
+### Gerar arquivo WAV
+
+```bash
+# Usando preset
+binaural generate --preset focus --duration 3600 --out foco.wav
+
+# Parâmetros customizados
+binaural generate \
+  --freq-left 528 \
+  --freq-right 535.83 \
+  --waveform sine \
+  --mode binaural \
+  --duration 1800 \
+  --amplitude 0.7 \
+  --fade-in 10 \
+  --fade-out 10 \
+  --out solfeggio_528.wav
+
+# WAV 16-bit
+binaural generate --preset sleep --bit-depth 16 --out sleep_16bit.wav
+
+# Exportar como MP3 (requer pydub + ffmpeg)
+binaural generate --preset meditation --format mp3 --out meditacao.mp3
+```
+
+### Reproduzir em tempo real
+
+```bash
+# Preset com loop
+binaural play --preset live --loop
+
+# Frequências customizadas
+binaural play --freq-left 200 --freq-right 206 --duration 600
+
+# Sem loop (para após a duração)
+binaural play --preset focus --no-loop --duration 300
+```
+
+### Gerar em lote (batch)
+
+```bash
+# Presets específicos
+binaural batch --presets focus --presets sleep --duration 60 --outdir output/
+
+# Todos os presets
+binaural batch --all --duration 120 --outdir output/
+```
+
+### Flags completas do `generate`
+
+| Flag | Curta | Descrição | Padrão |
+|------|-------|-----------|--------|
+| `--preset` | `-p` | Nome do preset | — |
+| `--freq-left` | `-fl` | Freq canal esquerdo (Hz) | 200 |
+| `--freq-right` | `-fr` | Freq canal direito (Hz) | 210 |
+| `--waveform` | `-w` | sine/sawtooth/square/triangle/pink_noise/white_noise | sine |
+| `--mode` | `-m` | binaural/monaural/isochronic/mono | binaural |
+| `--duration` | `-d` | Duração (segundos) | 300 |
+| `--sample-rate` | `-sr` | Sample rate (Hz) | 44100 |
+| `--bit-depth` | | 16 ou 24 | 24 |
+| `--amplitude` | `-a` | Amplitude (0.0–1.0) | 0.8 |
+| `--isochronic-rate` | | Taxa de pulso isocrônico (Hz) | 10 |
+| `--attack` | | ADSR attack (s) | 0.01 |
+| `--release` | | ADSR release (s) | 0.05 |
+| `--fade-in` | | Fade in (s) | 2.0 |
+| `--fade-out` | | Fade out (s) | 2.0 |
+| `--format` | `-f` | wav/mp3 | wav |
+| `--out` | `-o` | Arquivo de saída | preset.wav |
+
+---
+
+## 🖥 TUI — Interface Interativa
+
+```bash
+binaural tui
+```
+
+A TUI oferece:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 🧠 Binaural Generator                                          │
+├──────────────────┬──────────────────────────────────────────────┤
+│ 🎛  PRESETS       │ 📊 FORMA DE ONDA (preview 1s)               │
+│ [focus       ▼]  │ ┌──────────────────────────────────────────┐ │
+│                   │ │        ▄▄▄    ▄▄▄    ▄▄▄    ▄▄▄        │ │
+│ ⚙️  PARÂMETROS    │ │───▄▄▄▀   ▀▄▄▀   ▀▄▄▀   ▀▄▄▀   ▀▄▄▄───│ │
+│ Freq L: [200.0 ] │ │   ▀         ▀       ▀       ▀           │ │
+│ Freq R: [210.0 ] │ └──────────────────────────────────────────┘ │
+│ Amplitude: [0.7] │                                              │
+│ Duração: [3600 ] │ 📈 ESPECTRO                                  │
+│ Waveform: [sine] │ ╔══ Espectro ══════════════════════╗         │
+│ Modo: [binaural] │ ║ Alpha │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░║         │
+│                   │ ║ Low   │▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░║         │
+│ [🎵 Gerar] [▶ ]  │ ║ Mid   │▓▓▓░░░░░░░░░░░░░░░░░░░░░║         │
+│ [👁 View] [⏹ ]   │ ╚═════════════════════════════════════╝     │
+├──────────────────┴──────────────────────────────────────────────┤
+│ Preset: focus | Beat: 14.00 Hz | Ondas beta para concentração  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Atalhos:**
+- `q` — Sair
+- `g` — Gerar WAV
+- `p` — Reproduzir
+- `r` — Atualizar visualização
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+binaural-generator/
+├── pyproject.toml          # Configuração do pacote
+├── requirements.txt        # Dependências
+├── README.md
+├── presets/                 # Presets YAML
+│   ├── focus.yaml
+│   ├── meditation.yaml
+│   ├── sleep.yaml
+│   ├── elevation.yaml
+│   ├── live.yaml
+│   └── isochronic_gamma.yaml
+├── examples/
+│   ├── live_stream.py       # Exemplo de stream contínuo
+│   └── frequency_progression.py  # Progressão meditativa
+├── src/binaural_generator/
+│   ├── __init__.py
+│   ├── config.py            # Dataclasses e constantes
+│   ├── utils.py             # Validação, normalização
+│   ├── waveforms.py         # Geração de ondas e ruído
+│   ├── envelope.py          # ADSR, fade, gating isocrônico
+│   ├── synthesizer.py       # Motor de síntese por camada
+│   ├── mixer.py             # Mixagem multi-camada
+│   ├── renderer.py          # Exportação WAV/MP3
+│   ├── playback.py          # Reprodução em tempo real
+│   ├── presets.py            # Carregamento de presets
+│   ├── cli.py               # Interface CLI (Click)
+│   └── tui.py               # Interface TUI (Textual)
+└── tests/
+    ├── test_waveforms.py
+    ├── test_synthesizer.py
+    ├── test_envelope.py
+    ├── test_mixer.py
+    ├── test_renderer.py
+    ├── test_presets.py
+    ├── test_cli.py
+    └── test_utils.py
+```
+
+---
+
+## 🧪 Testes
+
+```bash
+# Rodar todos os testes
+pytest
+
+# Com cobertura
+pytest --cov=binaural_generator --cov-report=term-missing
+
+# Teste específico
+pytest tests/test_waveforms.py -v
+```
+
+---
+
+## 🎛 Guia de Parâmetros — Ondas Cerebrais
+
+| Faixa | Frequência (Hz) | Estado Mental | Preset |
+|-------|-----------------|---------------|--------|
+| **Delta** | 0.5 – 4 | Sono profundo, cura | `sleep` |
+| **Theta** | 4 – 8 | Meditação, criatividade | `meditation` |
+| **Alpha** | 8 – 14 | Relaxamento, calma | `live` |
+| **Beta** | 14 – 30 | Foco, concentração | `focus` |
+| **Gamma** | 30 – 100 | Processamento, clareza | `isochronic_gamma` |
+
+### Frequências Solfeggio
+
+| Frequência | Significado |
+|------------|-------------|
+| 174 Hz | Alívio de dor |
+| 285 Hz | Cura de tecidos |
+| 396 Hz | Liberação de medo |
+| 417 Hz | Facilitação de mudança |
+| 528 Hz | Transformação/DNA (preset `elevation`) |
+| 639 Hz | Conexão e relacionamentos |
+| 741 Hz | Expressão e soluções |
+| 852 Hz | Intuição |
+| 963 Hz | Conexão espiritual |
+
+---
+
+## 🎚 Trade-offs: Beats Suaves vs. Pronunciados
+
+| Parâmetro | Beat mais suave 😌 | Beat mais pronunciado ⚡ |
+|-----------|---------------------|--------------------------|
+| **Waveform** | `sine` | `square` ou `sawtooth` |
+| **Amplitude** | 0.3–0.5 | 0.7–1.0 |
+| **Ruído de fundo** | Pink noise 0.15–0.25 | Sem ruído ou 0.05 |
+| **Fade in/out** | 10–30 s | 1–3 s |
+| **Modo** | `binaural` | `isochronic` ou `monaural` |
+| **Freq base** | 100–200 Hz (graves) | 300–500 Hz (médios) |
+
+### Dicas:
+- **Para meditação/sono:** sine + pink noise + fades longos
+- **Para foco intenso:** sine ou triangle + sem ruído + fades curtos
+- **Para "sentir" o beat:** mode isochronic ou square wave
+- **Para viagem meditativa:** use o script `frequency_progression.py`
+
+---
+
+## 🔧 Exemplos Avançados
+
+### Live stream contínuo
+
+```bash
+python examples/live_stream.py --freq-left 528 --freq-right 535.83
+```
+
+### Jornada meditativa (progressão Beta → Delta)
+
+```bash
+python examples/frequency_progression.py
+```
+
+### Uso como biblioteca Python
+
+```python
+from binaural_generator.config import LayerConfig, SessionConfig, Mode, WaveformType, EnvelopeConfig
+from binaural_generator.mixer import mix_session
+from binaural_generator.renderer import render_wav
+from binaural_generator.presets import get_builtin_preset
+
+# Usando preset
+config = get_builtin_preset("focus")
+config.duration = 60  # 1 minuto
+signal = mix_session(config)
+render_wav(signal, "foco_1min.wav", config.sample_rate)
+
+# Customizado
+config = SessionConfig(
+    name="meu-beat",
+    duration=300,
+    layers=[
+        LayerConfig(
+            waveform=WaveformType.SINE,
+            freq_left=528.0,
+            freq_right=535.83,
+            amplitude=0.6,
+            mode=Mode.BINAURAL,
+            envelope=EnvelopeConfig(fade_in=10, fade_out=10),
+        ),
+        LayerConfig(
+            waveform=WaveformType.PINK_NOISE,
+            freq_left=100.0,
+            freq_right=100.0,
+            amplitude=0.1,
+            mode=Mode.MONO,
+        ),
+    ],
+)
+signal = mix_session(config)
+render_wav(signal, "solfeggio_528.wav")
+```
+
+---
+
+## 📄 Licença
+
+MIT License — use, modifique e distribua livremente.
+
+---
+
+*Feito com 💜 para elevar a vibração do planeta. 🧘‍♀️*
