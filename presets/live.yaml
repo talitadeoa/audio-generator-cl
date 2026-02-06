@@ -1,0 +1,29 @@
+# Preset: Live — Modo stream contínuo (Alpha 10 Hz)
+# Simula uma transmissão live tipo "Brain Waves" no YouTube.
+# Ondas alpha para relaxamento com alerta suave.
+
+name: live
+description: "Modo live stream contínuo — alpha 10 Hz para relaxamento"
+duration: 600           # Bloco de 10 min (repete em loop)
+sample_rate: 44100
+bit_depth: 24
+loop: true
+
+layers:
+  - waveform: sine
+    freq_left: 200.0
+    freq_right: 210.0     # beat = 10 Hz (alpha)
+    amplitude: 0.65
+    mode: binaural
+    envelope:
+      fade_in: 3.0
+      fade_out: 3.0
+
+  - waveform: pink_noise
+    freq_left: 100.0
+    freq_right: 100.0
+    amplitude: 0.1
+    mode: mono
+    envelope:
+      fade_in: 5.0
+      fade_out: 5.0

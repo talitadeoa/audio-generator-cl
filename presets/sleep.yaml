@@ -1,0 +1,28 @@
+# Preset: Sono — Ondas Delta (2 Hz)
+# Beat binaural para indução de sono profundo e restaurador.
+# Fade-out longo para transição suave.
+
+name: sleep
+description: "Ondas delta (2 Hz) para indução do sono"
+duration: 7200          # 2 horas
+sample_rate: 44100
+bit_depth: 24
+
+layers:
+  - waveform: sine
+    freq_left: 100.0
+    freq_right: 102.0     # beat = 2 Hz (delta)
+    amplitude: 0.5
+    mode: binaural
+    envelope:
+      fade_in: 30.0
+      fade_out: 60.0
+
+  - waveform: pink_noise
+    freq_left: 80.0
+    freq_right: 80.0
+    amplitude: 0.2
+    mode: mono
+    envelope:
+      fade_in: 30.0
+      fade_out: 60.0

@@ -1,0 +1,29 @@
+# Preset: Isocrônico — Pulsos Gamma (40 Hz)
+# Pulsos isocrônicos para clareza mental e função cognitiva.
+# Não requer fones de ouvido (diferente do binaural).
+
+name: isochronic_gamma
+description: "Pulsos isocrônicos gamma (40 Hz) para clareza mental"
+duration: 1800          # 30 min
+sample_rate: 44100
+bit_depth: 24
+
+layers:
+  - waveform: sine
+    freq_left: 300.0
+    freq_right: 300.0
+    amplitude: 0.7
+    mode: isochronic
+    isochronic_rate: 40.0
+    envelope:
+      fade_in: 5.0
+      fade_out: 5.0
+
+  - waveform: white_noise
+    freq_left: 100.0
+    freq_right: 100.0
+    amplitude: 0.08
+    mode: mono
+    envelope:
+      fade_in: 8.0
+      fade_out: 8.0

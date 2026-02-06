@@ -1,0 +1,28 @@
+# Preset: Foco — Ondas Beta (14 Hz)
+# Beat binaural para concentração profunda e produtividade.
+# Ideal para estudo, trabalho e tarefas que exigem atenção sustentada.
+
+name: focus
+description: "Ondas beta (14 Hz) para concentração profunda"
+duration: 3600          # 1 hora
+sample_rate: 44100
+bit_depth: 24
+
+layers:
+  - waveform: sine
+    freq_left: 200.0
+    freq_right: 214.0     # beat = 14 Hz (beta)
+    amplitude: 0.7
+    mode: binaural
+    envelope:
+      fade_in: 5.0
+      fade_out: 5.0
+
+  - waveform: pink_noise
+    freq_left: 100.0
+    freq_right: 100.0
+    amplitude: 0.15
+    mode: mono
+    envelope:
+      fade_in: 8.0
+      fade_out: 8.0

@@ -1,0 +1,22 @@
+# Preset: Meditação — Ondas Theta (6 Hz)
+# Beat binaural para estados meditativos profundos, introspecção e criatividade.
+
+name: meditation
+description: "Ondas theta (6 Hz) para meditação profunda"
+duration: 1800          # 30 min
+sample_rate: 44100
+bit_depth: 24
+
+layers:
+  - waveform: sine
+    freq_left: 150.0
+    freq_right: 156.0     # beat = 6 Hz (theta)
+    amplitude: 0.6
+    mode: binaural
+    envelope:
+      attack: 0.01
+      decay: 0.05
+      sustain: 1.0
+      release: 0.05
+      fade_in: 10.0
+      fade_out: 10.0

@@ -1,0 +1,30 @@
+# Preset: Elevação — Frequência Solfeggio 528 Hz + Schumann 7.83 Hz
+# Combinação poderosa para "elevar a vibração":
+# - 528 Hz: frequência do amor/transformação (Solfeggio)
+# - Beat de 7.83 Hz: ressonância Schumann (frequência da Terra)
+# - Camada sub de 396 Hz: liberação de medo e culpa (Solfeggio)
+
+name: elevation
+description: "528 Hz (Solfeggio) + 7.83 Hz (Schumann) para elevação vibracional"
+duration: 3600          # 1 hora
+sample_rate: 44100
+bit_depth: 24
+
+layers:
+  - waveform: sine
+    freq_left: 528.0
+    freq_right: 535.83    # beat ≈ 7.83 Hz (Schumann)
+    amplitude: 0.6
+    mode: binaural
+    envelope:
+      fade_in: 15.0
+      fade_out: 15.0
+
+  - waveform: triangle
+    freq_left: 396.0
+    freq_right: 396.0
+    amplitude: 0.15
+    mode: mono
+    envelope:
+      fade_in: 20.0
+      fade_out: 20.0
