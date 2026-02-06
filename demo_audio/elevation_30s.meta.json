@@ -1,0 +1,27 @@
+{
+  "generator": "binaural-generator",
+  "version": "1.0.0",
+  "preset": "elevation",
+  "description": "528 Hz (frequência Solfeggio) + 7.83 Hz (Schumann) para elevação vibracional",
+  "duration_sec": 30,
+  "sample_rate": 44100,
+  "bit_depth": 24,
+  "layers": [
+    {
+      "layer": 0,
+      "waveform": "sine",
+      "freq_left": 528.0,
+      "freq_right": 535.83,
+      "mode": "binaural",
+      "amplitude": 0.6
+    },
+    {
+      "layer": 1,
+      "waveform": "triangle",
+      "freq_left": 396.0,
+      "freq_right": 396.0,
+      "mode": "mono",
+      "amplitude": 0.15
+    }
+  ]
+}

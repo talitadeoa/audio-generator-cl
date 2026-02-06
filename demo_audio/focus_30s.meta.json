@@ -1,0 +1,27 @@
+{
+  "generator": "binaural-generator",
+  "version": "1.0.0",
+  "preset": "focus",
+  "description": "Ondas beta (14 Hz) para concentração profunda",
+  "duration_sec": 30,
+  "sample_rate": 44100,
+  "bit_depth": 24,
+  "layers": [
+    {
+      "layer": 0,
+      "waveform": "sine",
+      "freq_left": 200.0,
+      "freq_right": 214.0,
+      "mode": "binaural",
+      "amplitude": 0.7
+    },
+    {
+      "layer": 1,
+      "waveform": "pink_noise",
+      "freq_left": 100.0,
+      "freq_right": 100.0,
+      "mode": "mono",
+      "amplitude": 0.15
+    }
+  ]
+}
