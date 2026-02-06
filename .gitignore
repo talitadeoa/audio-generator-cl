@@ -1,0 +1,13 @@
+# System
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Output
+demo_output/
+output/

@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "binaural-generator"
+version = "1.0.0"
+description = "Gerador de sons binaurais, isochrônicos e ambient pads para meditação, foco, sono e elevação vibracional."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Binaural Generator Team"},
+]
+keywords = ["binaural", "isochronic", "brainwave", "meditation", "focus", "sound", "audio"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "soundfile>=0.12",
+    "sounddevice>=0.4",
+    "click>=8.1",
+    "textual>=0.40",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+mp3 = ["pydub>=0.25"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+all = ["binaural-generator[mp3,dev]"]
+
+[project.scripts]
+binaural = "binaural_generator.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/binaural-generator/binaural-generator"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
